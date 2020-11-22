@@ -54,7 +54,7 @@ An automated refresh is disabled by default.  You can enable it by setting the `
 ## Installation
 
 1. Disable the FS3 plugins, as explained in [Enabling and Disabling Plugins](https://aresmush.com/tutorials/config/plugins/).
-2. In the game, run `plugin/install fate`.
+2. In the game, run `plugin/install <github url>`.
 3. Go to Admin->Setup and change your [chargen stages](https://aresmush.com/tutorials/config/chargen.html).  Replace the FS3 stage with stages for FFG:
 
 Old:
