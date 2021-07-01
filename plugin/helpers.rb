@@ -47,7 +47,8 @@ module AresMUSH
       end
       
       total = Fate.roll_fate_dice + modifier + rating
-      Global.logger.debug "Rolling #{roll_str} for #{char.name}: abil=#{ability} mod=#{modifier} rating=#{rating} total=#{total}"
+      name = char ? char.name : "NPC"
+      Global.logger.debug "Rolling #{roll_str} for #{name}: abil=#{ability} mod=#{modifier} rating=#{rating} total=#{total}"
         
       total
     end
@@ -133,7 +134,7 @@ module AresMUSH
     end
     
     def self.refresh_fate
-      Chargen.approved_chars.each { |c| c.update(fate_points: fate_refresh) }
+      Chargen.approved_chars.each { |c| c.update(fate_points: c.fate_refresh) }
     end
   end
 end
