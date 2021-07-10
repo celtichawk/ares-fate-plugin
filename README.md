@@ -122,7 +122,7 @@ You can configure a list of sample stunts for people to choose from, but players
 
 ## Uninstalling
 
-Removing the plugin requires some code fiddling.  See [Uninstalling Plugins](https://www.aresmush.com/tutorials/code/extras.html#uninstalling-plugins).
+Removing the plugin requires some code fiddling.  See [Uninstalling Fate](Uninstalling.md).
 
 ## License
 

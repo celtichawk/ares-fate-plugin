@@ -177,5 +177,15 @@ module AresMUSH
        :overall => overall 
       }
     end
+    
+    def self.uninstall_plugin
+      Character.all.each do |c|
+        c.update(fate_aspects: nil)
+        c.update(fate_stunts: nil)
+        c.update(fate_skills: nil)
+        c.update(fate_points: nil)
+        c.update(fate_refresh: nil)        
+      end
+    end
   end
 end
