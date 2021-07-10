@@ -1,0 +1,22 @@
+<li role="separator" class="divider"></li>
+
+<li><a href="#" {{action (mut showSkillRoll) true}}>Roll Ability</a></li>
+
+
+<BsModalSimple @title="Roll Ability" @closeTitle="Cancel" @submitTitle="Roll" @size={{null}} @fade={{true}} @open={{showSkillRoll}} @onSubmit={{action "rollAbility"}} @onHide={{action (mut showSkillRoll) false}}>
+
+  <p><b>Regular Roll</b></p>
+  
+  <p>You can use the same dice string options as the roll command - "Fight" or "Fight+1" or just "Good". See <LinkTo @route="help-topic" @model="rolls" @target="_blank">help roll</LinkTo> for details.</p>
+    
+  <p>Skill: <Input @type="text" @size={{25}} @value={{skillToRoll}} /></p>
+  
+
+  <p><b>Opposed Roll</b></p>
+  
+  <p>Optional - include if you want the roll above to be opposed by someone else's roll. You can use a NPC name for the opponent.</p>
+    
+  <p>Opponent: <Input @type="text" @size={{25}} @value={{vsChar}} /></p>
+  <p>Skill: <Input @type="text" @size={{25}} @value={{vsSkill}} /></p>
+  
+</BsModalSimple>

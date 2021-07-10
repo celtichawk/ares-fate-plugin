@@ -15,8 +15,13 @@ module AresMUSH
       
       def handle
         roll = Fate.roll_skill(enactor, self.roll_str)
+        if (!roll)
+          client.emit_failure t('fate.invalid_roll_str')
+          return
+        end
+        
         result = Fate.rating_name(roll)
-        enactor_room.emit_ooc t('fate.roll_results', :name => enactor_name, :result => result, :roll => roll, :roll_str => self.roll_str)
+        Fate.emit_results enactor.room, t('fate.roll_results', :name => enactor_name, :result => result, :roll => roll, :roll_str => self.roll_str)
       end
     end
   end

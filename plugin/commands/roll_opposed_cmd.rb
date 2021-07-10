@@ -20,31 +20,21 @@ module AresMUSH
       end
       
       def handle
-        roll1 = Fate.roll_skill(enactor, self.roll_str1)
-        
-        char = Character.find_one_by_name(self.target)
-        roll2 = Fate.roll_skill(char, self.roll_str2)
-        
-        result1 = Fate.rating_name(roll1)
-        result2 = Fate.rating_name(roll2)
-        
-        if (roll1 == roll2)
-          overall = t('fate.opposed_draw')
-        elsif (roll1 > roll2)
-          overall = t('fate.opposed_win', :name => enactor_name)
-        else
-          overall = t('fate.opposed_win', :name => self.target)
+        results = Fate.roll_opposed(enactor, self.roll_str1, self.target, self.roll_str2)
+        if (!results)
+          client.emit_failure t('fate.invalid_roll_str')
+          return
         end
         
-        enactor_room.emit_ooc t('fate.opposed_roll_results', :name1 => enactor_name, 
+        Fate.emit_results enactor.room, t('fate.opposed_roll_results', :name1 => enactor_name, 
            :name2 => self.target, 
            :roll_str1 => self.roll_str1,
            :roll_str2 => self.roll_str2,
-           :roll1 => roll1,
-           :roll2 => roll2,
-           :result1 => result1,
-           :result2 => result2,
-           :overall => overall )
+           :roll1 => results[:roll1],
+           :roll2 => results[:roll2],
+           :result1 => results[:result1],
+           :result2 => results[:result2],
+           :overall => results[:overall] )
       end
     end
   end

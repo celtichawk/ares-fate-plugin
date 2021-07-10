@@ -35,7 +35,7 @@ module AresMUSH
     def self.roll_skill(char, roll_str)
       match = /^(?<ability>[^\+\-]+)\s*(?<modifier>[\+\-]\s*\d+)?$/.match(roll_str)
       return nil if !match
-
+      
       ability = match[:ability].strip
       modifier = match[:modifier].nil? ? 0 : match[:modifier].gsub(/\s+/, "").to_i
       if Fate.rating_ladder[ability]
@@ -45,10 +45,11 @@ module AresMUSH
       else 
         rating = 0
       end
+      dice = Fate.roll_fate_dice
       
-      total = Fate.roll_fate_dice + modifier + rating
+      total = dice + modifier + rating
       name = char ? char.name : "NPC"
-      Global.logger.debug "Rolling #{roll_str} for #{name}: abil=#{ability} mod=#{modifier} rating=#{rating} total=#{total}"
+      Global.logger.debug "Rolling #{roll_str} for #{name}: abil=#{ability} rating=#{rating} mod=#{modifier} dice=#{dice} total=#{total}"
         
       total
     end
@@ -135,6 +136,46 @@ module AresMUSH
     
     def self.refresh_fate
       Chargen.approved_chars.each { |c| c.update(fate_points: c.fate_refresh) }
+    end
+    
+    def self.emit_results(room, message)
+      room.emit message
+      if (room.scene)
+        Scenes.add_to_scene(room.scene, message)
+      end
+    end
+    
+    def self.roll_opposed(char, roll_str1, target, roll_str2)
+      roll1 = Fate.roll_skill(char, roll_str1)
+      if (!roll1)
+        return nil
+      end
+      
+      opponent = Character.find_one_by_name(target)
+      roll2 = Fate.roll_skill(opponent, roll_str2)
+
+      if (!roll2)
+        return nil
+      end
+      
+      result1 = Fate.rating_name(roll1)
+      result2 = Fate.rating_name(roll2)
+      
+      if (roll1 == roll2)
+        overall = t('fate.opposed_draw')
+      elsif (roll1 > roll2)
+        overall = t('fate.opposed_win', :name => char.name)
+      else
+        overall = t('fate.opposed_win', :name => target)
+      end
+      
+      {
+       :roll1 => roll1,
+       :roll2 => roll2,
+       :result1 => result1,
+       :result2 => result2,
+       :overall => overall 
+      }
     end
   end
 end

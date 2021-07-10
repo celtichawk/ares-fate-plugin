@@ -67,7 +67,10 @@ module AresMUSH
     end
 
     def self.get_web_request_handler(request)
-      nil
+      case request.cmd
+      when "fateRoll"
+        return FateRollRequestHandler
+      end
     end
 
   end
