@@ -89,11 +89,12 @@ module AresMUSH
         model.update(fate_refresh: 4)
       elsif (num_stunts == 4)
         model.update(fate_refresh: 3)
-      if (num_stunts ==5)
+      else
         model.update(fate_refresh: 2)
-      else 
-        model.update(fate_refresh: 1)
-        end
+              elsif (num_stunts == 5)
+        model.update(fate_refresh: 1
+              end
+      end
     end
     
     def self.skill_rating(model, skill)
