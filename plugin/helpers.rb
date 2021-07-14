@@ -86,12 +86,13 @@ module AresMUSH
     def self.update_refresh(model)
       num_stunts = (model.fate_stunts || {}).count
       if (num_stunts <= 3)
-        model.update(fate_refresh: 3)
+        model.update(fate_refresh: 4)
       elsif (num_stunts == 4)
-        model.update(fate_refresh: 2)
+        model.update(fate_refresh: 3)
       else
+        model.update(fate_refresh: 2)
+      elsif (num_stunts == 5)
         model.update(fate_refresh: 1)
-      end
     end
     
     def self.skill_rating(model, skill)
