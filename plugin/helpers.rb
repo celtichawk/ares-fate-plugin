@@ -1,4 +1,4 @@
-module AresMUSH
+  module AresMUSH
   module Fate
     
     def self.rating_ladder
