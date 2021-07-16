@@ -1,4 +1,4 @@
-  module AresMUSH
+module AresMUSH
   module Fate
     
     def self.rating_ladder
@@ -91,9 +91,6 @@
         model.update(fate_refresh: 3)
       else
         model.update(fate_refresh: 2)
-              elsif (num_stunts == 5)
-        model.update(fate_refresh: 1
-              end
       end
     end
     
