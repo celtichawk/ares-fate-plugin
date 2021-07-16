@@ -43,6 +43,8 @@ module AresMUSH
           return FatePointAwardCmd
         when "spend"
           return FatePointSpendCmd
+                  when "reward"
+          return FateRefreshAwardCmd
         when "refresh"
           return FateRefreshCmd
         end
