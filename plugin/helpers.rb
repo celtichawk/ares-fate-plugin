@@ -91,6 +91,9 @@ module AresMUSH
         model.update(fate_refresh: 3)
       else
         model.update(fate_refresh: 2)
+              if (num_stunts == 6)
+        model.update(fate_refresh: 1)
+        end
       end
     end
     
